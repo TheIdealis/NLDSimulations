@@ -33,7 +33,8 @@ class Animator:
         self.times = RG.times
         self.grid_points = len(self.Y[0])
         self.window = get_window('blackman', self.grid_points)
-        self.w = ft.fftfreq(self.grid_points, d=RG.dt / (2 * np.pi))[:self.grid_points // 2]
+        self.dw = RG.dt / (2 * np.pi)
+        self.w = ft.fftfreq(self.grid_points, d=self.dw)#[:self.grid_points // 2]
         self._create_figure()
 
     def _create_figure(self):
@@ -44,7 +45,7 @@ class Animator:
         self._a_line, = self.axes[0].plot(self.times, self.Y[0])
         self._a_line2, = self.axes[0].plot(self.times, abs(self.Y[0]), 'k--')
 
-        self._spec_line, = self.axes[1].plot(self.w, abs(ft.fft(self.Y[0])[:self.grid_points // 2]))
+        self._spec_line, = self.axes[1].plot(self.w, abs(ft.fft(self.Y[0])))#[:self.grid_points // 2]))
 
         # Axis text
         self.axes[0].set_ylabel('$a(\\tau, z)$')
@@ -60,7 +61,8 @@ class Animator:
 
         self._a_line.set_data(self.times, self.Y[step])
         self._a_line2.set_data(self.times, abs(self.Y[step]))
-        self._spec_line.set_data(self.w, abs(ft.fft(self.Y[step])[:self.grid_points // 2]))
+        fft_func = abs(ft.fft(self.Y[step]))#[:self.grid_points // 2])
+        self._spec_line.set_data(self.w, fft_func)
         self.axes[0].relim()
 
         lim = abs(self.Y[step]).max()
