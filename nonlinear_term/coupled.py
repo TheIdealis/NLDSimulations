@@ -4,10 +4,11 @@ from scipy.integrate import ode
 from tqdm import trange
 
 
-class NonLinear():
+class Coupled():
     def __init__(self):
-        self.c = .25
-
+        self.A0 = 1
+        self.Omega = 1
+        self.kappa = 1
         self.dt = 0.1
         self.times = np.arange(-500, 500, self.dt)
         # self.times = np.arange(-25, 25, self.dt)
@@ -17,14 +18,8 @@ class NonLinear():
 
         self.Y = None
 
-        self.T0 = 2.
-        # self.a0 = np.exp(-self.times**2 / self.T0**2)
-        W = 1
-        # self.a0 = 1 / (W * np.cosh(self.times / W))
-        # self.a0 = np.ones(len(self.times))
-        self.a0 = np.ones(len(self.times)) + 0.01 * np.exp(1j * 0.1 * self.times)
-        # self.a0 = np.ones(len(self.times)) + 0.01 / np.cosh(self.times * 0.01)
-
+        self.a0 = np.zeros((2, len(self.times)))
+        self.a0
 
     def __func_b(self, z, y):
         return 1j * self.c * np.gradient(np.gradient(y, self.dt), self.dt)
