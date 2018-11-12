@@ -19,6 +19,7 @@ class Coupled():
         self.Y = None
 
         self.a0 = np.zeros((2, len(self.times)))
+
         self.a0
 
     def __func_b(self, z, y):
