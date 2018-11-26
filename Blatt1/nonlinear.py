@@ -25,31 +25,31 @@ class NonLinear():
         self.a0 = np.ones(len(self.times)) + 0.01 * np.exp(1j * 0.1 * self.times)
         # self.a0 = np.ones(len(self.times)) + 0.01 / np.cosh(self.times * 0.01)
 
-
-    def __func_b(self, z, y):
+    def _func_b(self, z, y):
         return 1j * self.c * np.gradient(np.gradient(y, self.dt), self.dt)
 
-    def __func_c(self, z, y):
+    def _func_c(self, z, y):
         return 1j * self.c * abs(y)**2 * y
 
-    def __func_d(self, z, y):
+    def _func_d(self, z, y):
         return self.c * y**2 * np.gradient(y, self.dt)
 
-    def __func_bc(self, z, y):
+    def _func_bc(self, z, y):
         return 1j * self.c * abs(y)**2 * y + \
                - 0.2 * 1j * self.c * np.gradient(np.gradient(y, self.dt), self.dt)
 
-    def __func_bcd(self, z, y):
+    def _func_bcd(self, z, y):
         return 1j * self.c * abs(y)**2 * y + \
                - 0.2 * 1j * self.c * np.gradient(np.gradient(y, self.dt), self.dt) + \
                0.2 * self.c * y**2 * np.gradient(y, self.dt)
 
-    def __func_NLS(self, z, y):
+    def _func_NLS(self, z, y):
         return 1j / 2 * np.gradient(np.gradient(y, self.dt), self.dt) \
                + 1j * abs(y)**2 * y
 
-    def integrate(self):
-        r = ode(self.__func_NLS)
+    def integrate(self, type='NLS'):
+
+        r = ode(getattr(self, '_func_'+type))
         opt = Odeoptions()
         opt.atol = 1e-12
         opt.rtol = 1e-10

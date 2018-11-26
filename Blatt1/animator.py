@@ -56,7 +56,7 @@ class Animator:
         self.axes[0].set_ylabel('$a(\\tau, z)$')
         self.axes[0].set_xlabel('$\\tau$')
 
-        self.axes[1].set_ylabel('$I(\omega, z)$')
+        self.axes[1].set_ylabel('$|I(\omega, z)|$')
         self.axes[1].set_xlabel('$\omega$')
 
         self.axes[0].set_yticks([])
@@ -72,7 +72,7 @@ class Animator:
         self.axes[0].relim()
 
         lim = abs(self.Y[step]).max()
-        self.axes[0].set_ylim([-1.1*lim, 1.1*lim])
+        self.axes[0].set_ylim([-0.6*lim, 1.1*lim])
         # self.fig.canvas.draw()
 
         return (self._a_line, self._a_line2, self._spec_line)
