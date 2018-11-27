@@ -60,3 +60,5 @@ target/
 \.idea/
 
 *.mp4
+notebooks/.ipynb_checkpoints/Exercixe 3-checkpoint.ipynb
+notebooks/.ipynb_checkpoints/Explore Wave package-checkpoint.ipynb
