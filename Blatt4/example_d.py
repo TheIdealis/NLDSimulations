@@ -14,7 +14,7 @@ RG.z = np.arange(0, 1, RG.dz)
 # RG.a0 = np.exp(-RG.times**2 / RG.T0**2)
 size = len(RG.times)
 RG.a0 = np.zeros(size)
-RG.a0[np.where(abs(RG.times) < .5)] = 2.5 * np.pi
+RG.a0[np.where(abs(RG.times) < .5)] = 0.5 * np.pi
 
 RG.integrate()
 
